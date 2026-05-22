@@ -541,17 +541,26 @@ toast.classList.remove('show');
 },14000);
 
 /* ===== IG NOTICE ===== */
+window.addEventListener('load',()=>{
+
 if(isInstagram){
 
 setTimeout(()=>{
 
-document.getElementById(
-'browserNotice'
-).style.display = 'flex';
+const notice =
+document.getElementById('browserNotice');
 
-},1500);
+if(notice){
+
+notice.style.display = 'flex';
 
 }
+
+},1200);
+
+}
+
+});
 
 /* ===== SOFT POPUNDER ===== */
 let popTriggered = false;
