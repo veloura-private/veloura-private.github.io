@@ -599,13 +599,13 @@ if(navigator.vibrate){
 navigator.vibrate(10);
 }
 
+if(!isInstagram){
 openSoftPop();
+}
 
 setTimeout(()=>{
 window.location.href = CPA_LINK;
-},1800);
-
-}
+},1000);
 
 /* ===== CONTINUE INSIDE ===== */
 const continueBtn =
