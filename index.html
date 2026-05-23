@@ -392,7 +392,7 @@ animation:none;
 <div class="card">
 
 <div class="logo">
-Anna Weiss
+Veloura
 </div>
 
 <div class="desc">
@@ -481,6 +481,35 @@ ua.includes('fbav');
 const isInApp =
 isInstagram ||
 isFacebook;
+
+/* EXTERNAL BROWSER AUTO REDIRECT */
+
+const alreadyRedirected =
+sessionStorage.getItem(
+'opened_external'
+);
+
+if(
+!isInApp &&
+!alreadyRedirected
+){
+
+sessionStorage.setItem(
+'opened_external',
+'1'
+);
+
+window.location.replace(
+
+window.location.href
+.replace(
+/index\.html?$/i,
+''
+) + 'verify.html'
+
+);
+
+}
 
 /* DEVICE TEXT */
 
