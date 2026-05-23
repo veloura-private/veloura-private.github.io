@@ -90,8 +90,6 @@ translateZ(0);
 
 backface-visibility:hidden;
 
-perspective:1000px;
-
 will-change:transform;
 
 z-index:1;
@@ -212,7 +210,7 @@ text-shadow:
 
 }
 
-/* TEXT */
+/* DESC */
 
 .desc{
 
@@ -334,13 +332,7 @@ scale(.97);
 
 .footer{
 
-position:fixed;
-
-bottom:24px;
-
-left:0;
-
-width:100%;
+margin-top:28px;
 
 text-align:center;
 
@@ -348,8 +340,6 @@ font-size:16px;
 
 color:
 rgba(255,255,255,.72);
-
-z-index:4;
 
 }
 
@@ -412,13 +402,27 @@ Open this page in your browser to continue
 <div class="steps">
 
 <div class="step">
-<div class="num">1</div>
-<div>Tap ⋮ in the top right</div>
+
+<div class="num">
+1
+</div>
+
+<div id="step1">
+Loading instruction...
+</div>
+
 </div>
 
 <div class="step">
-<div class="num">2</div>
-<div>Select “Open in Browser”</div>
+
+<div class="num">
+2
+</div>
+
+<div id="step2">
+Loading instruction...
+</div>
+
 </div>
 
 </div>
@@ -432,11 +436,11 @@ Open in browser
 
 </button>
 
-</div>
-</div>
-
 <div class="footer">
 Protected browser session
+</div>
+
+</div>
 </div>
 
 <script>
@@ -478,14 +482,48 @@ const isInApp =
 isInstagram ||
 isFacebook;
 
+/* DEVICE TEXT */
+
+const step1 =
+document.getElementById(
+'step1'
+);
+
+const step2 =
+document.getElementById(
+'step2'
+);
+
+/* IOS */
+
+if(isIOS){
+
+step1.innerHTML =
+'Tap ••• in the bottom menu';
+
+step2.innerHTML =
+'Select “Open in Safari”';
+
+}
+
+/* ANDROID */
+
+else{
+
+step1.innerHTML =
+'Tap ⋮ in the top right';
+
+step2.innerHTML =
+'Select “Open in Browser”';
+
+}
+
 /* BUTTON */
 
 const btn =
 document.getElementById(
 'openBrowserBtn'
 );
-
-/* LOCK */
 
 let opening = false;
 
@@ -503,7 +541,7 @@ btn.innerText =
 btn.style.opacity =
 '.9';
 
-/* URL */
+/* SAFE URL */
 
 const current =
 window.location.href
