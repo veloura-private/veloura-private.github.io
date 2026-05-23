@@ -1,17 +1,143 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verification</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:'Patrick Hand',cursive;
+background:#e6c3c3;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+.hero{
+height:36vh;
+
+background:
+linear-gradient(rgba(230,195,195,.15),rgba(230,195,195,.25)),
+url('landing2.webp');
+
+background-size:cover;
+background-position:center top;
+
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+}
+
+.content{
+margin-top:-70px;
+padding:0 20px 40px;
+}
+
+.title{
+font-size:52px;
+text-align:center;
+margin-bottom:26px;
+color:black;
+}
+
+.card{
+background:#ead1d1;
+padding:28px;
+border-radius:34px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.verify-title{
+font-size:38px;
+text-align:center;
+margin-bottom:12px;
+}
+
+.verify-text{
+font-size:28px;
+line-height:1.4;
+text-align:center;
+margin-bottom:28px;
+}
+
+.check{
+display:flex;
+align-items:center;
+gap:14px;
+font-size:28px;
+margin-bottom:28px;
+}
+
+.check input{
+width:30px;
+height:30px;
+}
+
+.button{
+width:100%;
+height:64px;
+border:none;
+border-radius:24px;
+background:#071633;
+color:white;
+font-size:30px;
+font-family:'Patrick Hand',cursive;
+}
+
+.loading{
+display:none;
+margin-top:24px;
+text-align:center;
+font-size:24px;
+}
+
+.bar-wrap{
+width:100%;
+height:10px;
+background:rgba(255,255,255,.25);
+border-radius:999px;
+overflow:hidden;
+display:none;
+margin-top:18px;
+}
+
+.bar{
+width:0%;
+height:100%;
+background:#071633;
+transition:width 2s linear;
+}
+
+</style>
+</head>
 <body>
 
 <div class="hero"></div>
 
 <div class="content">
 
-<div class="title">Premium Access</div>
+<div class="title">
+Premium Access
+</div>
 
-<div class="box">
+<div class="card">
 
-<div class="verify-title">Human Verification</div>
+<div class="verify-title">
+Human Verification
+</div>
 
-<div class="verify-sub">
+<div class="verify-text">
 Complete verification to continue securely.
 </div>
 
@@ -20,7 +146,7 @@ Complete verification to continue securely.
 <span>I confirm I am human</span>
 </label>
 
-<button class="btn" onclick="goOffer()">
+<button class="button" onclick="continueOffer()">
 Continue
 </button>
 
@@ -28,42 +154,39 @@ Continue
 Verifying secure session...
 </div>
 
-<div class="progress" id="progress">
+<div class="bar-wrap" id="barWrap">
 <div class="bar" id="bar"></div>
 </div>
 
 </div>
-
 </div>
 
 <script>
-const OFFER_URL = 'https://your-offer-link.com';
 
-function goOffer(){
+const OFFER_LINK='https://your-offer-link.com';
 
-const checked = document.getElementById('check').checked;
+function continueOffer(){
+
+const checked=document.getElementById('check').checked;
 
 if(!checked){
 alert('Please confirm verification');
 return;
 }
 
-const loading = document.getElementById('loading');
-const progress = document.getElementById('progress');
-const bar = document.getElementById('bar');
-
-loading.style.display='block';
-progress.style.display='block';
+document.getElementById('loading').style.display='block';
+document.getElementById('barWrap').style.display='block';
 
 setTimeout(()=>{
-bar.style.width='100%';
+document.getElementById('bar').style.width='100%';
 },100);
 
 setTimeout(()=>{
-window.location.href = OFFER_URL;
-},1900);
+window.location.href=OFFER_LINK;
+},2200);
 
 }
+
 </script>
 
 </body>
