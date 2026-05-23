@@ -1,356 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no,
+viewport-fit=cover">
 
 <title>Open In Browser</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:'Patrick Hand',cursive;
-    background:#d7b3b7;
+html,
+body{
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+font-family:'Patrick Hand',cursive;
+
+background:#d9b7b8;
+
 }
 
 /* BACKGROUND */
+
 .bg{
-    position:fixed;
-    inset:0;
-    background:
-    linear-gradient(
-        to bottom,
-        rgba(215,179,183,.82),
-        rgba(215,179,183,.88)
-    ),
-    url('assets/bg1.jpg') center center/cover no-repeat;
 
-    z-index:1;
+position:fixed;
+inset:0;
 
-    transform:scale(1.03);
+background:
+linear-gradient(
+to bottom,
+rgba(217,183,184,.72),
+rgba(217,183,184,.84)
+),
+url('assets/bg1.jpg');
 
-    animation:bgZoom 12s ease-in-out infinite alternate;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
+animation:bgZoom 14s ease-in-out infinite alternate;
+
+transform:scale(1.03);
+
+z-index:1;
+
 }
 
 @keyframes bgZoom{
-    from{
-        transform:scale(1.03);
-    }
-    to{
-        transform:scale(1.08);
-    }
+
+from{
+transform:scale(1.03);
 }
 
-/* MAIN */
+to{
+transform:scale(1.08);
+}
+
+}
+
+/* GLOW */
+
+.glow{
+
+position:fixed;
+
+width:420px;
+height:420px;
+
+background:
+rgba(255,255,255,.12);
+
+filter:blur(100px);
+
+border-radius:50%;
+
+top:50%;
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+z-index:2;
+
+pointer-events:none;
+
+}
+
+/* WRAPPER */
+
 .wrapper{
-    position:relative;
-    z-index:2;
 
-    width:100%;
-    height:100%;
+position:relative;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+z-index:3;
 
-    padding:24px;
+width:100%;
+height:100%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:26px;
+
 }
+
+/* CARD */
 
 .card{
-    width:100%;
-    max-width:420px;
 
-    text-align:center;
+width:100%;
+max-width:420px;
 
-    animation:fadeUp .8s ease;
+text-align:center;
+
+animation:fadeUp .8s ease;
+
 }
 
 @keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+
+from{
+opacity:0;
+transform:
+translateY(24px);
 }
+
+to{
+opacity:1;
+transform:
+translateY(0);
+}
+
+}
+
+/* LOGO */
 
 .logo{
-    font-size:54px;
-    color:#fff;
 
-    margin-bottom:18px;
+font-size:56px;
 
-    text-shadow:0 2px 10px rgba(0,0,0,.12);
+color:white;
+
+margin-bottom:18px;
+
+text-shadow:
+0 2px 12px rgba(0,0,0,.12);
+
 }
+
+/* DESCRIPTION */
 
 .desc{
-    color:rgba(255,255,255,.94);
 
-    font-size:24px;
-    line-height:1.4;
+font-size:24px;
 
-    margin-bottom:34px;
+line-height:1.45;
+
+color:
+rgba(255,255,255,.94);
+
+margin-bottom:38px;
+
 }
 
-.steps{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
+/* STEPS */
 
-    margin-bottom:38px;
+.steps{
+
+display:flex;
+flex-direction:column;
+
+gap:16px;
+
+margin-bottom:38px;
+
 }
 
 .step{
-    display:flex;
-    align-items:center;
-    gap:16px;
 
-    text-align:left;
+display:flex;
+align-items:center;
 
-    color:rgba(255,255,255,.92);
+gap:16px;
 
-    font-size:20px;
+text-align:left;
+
+font-size:21px;
+
+color:
+rgba(255,255,255,.92);
+
 }
 
 .num{
-    width:44px;
-    height:44px;
 
-    min-width:44px;
+width:46px;
+height:46px;
 
-    border-radius:14px;
+min-width:46px;
 
-    background:rgba(255,255,255,.16);
+border-radius:15px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+background:
+rgba(255,255,255,.16);
 
-    font-size:22px;
-    color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
 
-    backdrop-filter:blur(8px);
+font-size:22px;
+
+backdrop-filter:
+blur(10px);
+
 }
 
+/* BUTTON */
+
 .cta{
-    width:100%;
-    height:68px;
 
-    border:none;
-    border-radius:26px;
+width:100%;
+height:66px;
 
-    background:#ffffff;
-    color:#000;
+border:none;
 
-    font-family:'Patrick Hand',cursive;
-    font-size:28px;
+border-radius:28px;
 
-    cursor:pointer;
+background:white;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.7);
+font-family:'Patrick Hand',cursive;
 
-    transition:.22s;
+font-size:28px;
+
+color:#111;
+
+box-shadow:
+0 12px 34px rgba(0,0,0,.16);
+
+transition:
+transform .18s ease,
+opacity .18s ease;
+
+cursor:pointer;
+
 }
 
 .cta:active{
-    transform:scale(.97);
+
+transform:scale(.97);
+
 }
+
+/* FOOTER */
 
 .footer{
-    position:fixed;
-    bottom:24px;
 
-    width:100%;
+position:fixed;
 
-    text-align:center;
+bottom:24px;
 
-    z-index:3;
+left:0;
 
-    color:rgba(255,255,255,.8);
+width:100%;
 
-    font-size:18px;
-}
+text-align:center;
 
-/* TOP NOTICE */
-.notice{
-    position:fixed;
-    top:22px;
-    left:50%;
+font-size:16px;
 
-    transform:translateX(-50%);
+color:
+rgba(255,255,255,.72);
 
-    background:rgba(255,255,255,.16);
+z-index:4;
 
-    backdrop-filter:blur(10px);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    color:#fff;
-
-    padding:10px 18px;
-
-    border-radius:18px;
-
-    font-size:15px;
-
-    z-index:10;
-
-    animation:fadeNotice 3s ease forwards;
-}
-
-@keyframes fadeNotice{
-    0%{
-        opacity:0;
-        transform:translate(-50%,-10px);
-    }
-
-    10%{
-        opacity:1;
-        transform:translate(-50%,0);
-    }
-
-    90%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-    }
 }
 
 /* MOBILE */
+
 @media(max-width:480px){
 
 .logo{
-    font-size:42px;
+font-size:44px;
 }
 
 .desc{
-    font-size:18px;
+font-size:18px;
 }
 
 .step{
-    font-size:17px;
+font-size:17px;
 }
 
 .cta{
-    height:62px;
-    font-size:24px;
+height:60px;
+font-size:24px;
 }
 
 }
+
+/* SAFE AREA */
+
+@supports(padding:max(0px)){
+
+.wrapper{
+
+padding-top:
+max(26px,
+env(safe-area-inset-top));
+
+padding-bottom:
+max(26px,
+env(safe-area-inset-bottom));
+
+}
+
+}
+
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
 
-<div class="notice" id="notice">
-    Secure browser access enabled
-</div>
+<div class="glow"></div>
 
 <div class="wrapper">
 
-    <div class="card">
+<div class="card">
 
-        <div class="logo">
-            Veloura
-        </div>
+<div class="logo">
+Veloura
+</div>
 
-        <div class="desc">
-            Open this page in your browser to continue
-        </div>
+<div class="desc">
+Open this page in your browser to continue
+</div>
 
-        <div class="steps">
+<div class="steps">
 
-            <div class="step">
-                <div class="num">1</div>
-                <div>Tap ⋮ in the top right</div>
-            </div>
+<div class="step">
+<div class="num">1</div>
+<div>Tap ⋮ in the top right</div>
+</div>
 
-            <div class="step">
-                <div class="num">2</div>
-                <div>Select “Open in Browser”</div>
-            </div>
-
-        </div>
-
-        <button class="cta" id="openBrowserBtn">
-            Open in browser
-        </button>
-
-    </div>
+<div class="step">
+<div class="num">2</div>
+<div>Select “Open in Browser”</div>
+</div>
 
 </div>
 
+<button
+class="cta"
+id="openBrowserBtn">
+
+Open in browser
+
+</button>
+
+</div>
+</div>
+
 <div class="footer">
-    Protected session
+Protected browser session
 </div>
 
 <script>
 
-/* DETECT */
-const ua = navigator.userAgent.toLowerCase();
+/* DEVICE DETECT */
 
-const isInstagram =
-ua.includes("instagram");
+const ua =
+navigator.userAgent.toLowerCase();
 
 const isAndroid =
-ua.includes("android");
+ua.includes('android');
 
 const isIOS =
 /iphone|ipad|ipod/.test(ua);
 
 /* BUTTON */
+
 document
-.getElementById("openBrowserBtn")
-.addEventListener("click",()=>{
+.getElementById(
+'openBrowserBtn'
+)
+.addEventListener(
+'click',
+()=>{
 
-    /* ANDROID */
-    if(isAndroid){
+const target =
+window.location.origin +
+'/verify.html';
 
-        alert("Tap ⋮ → Open in browser");
+/* ANDROID */
 
-    }
+if(isAndroid){
 
-    /* IOS */
-    else if(isIOS){
+const clean =
+target.replace(
+/^https?:\/\//,''
+);
 
-        alert("Tap Share → Open in Safari");
+window.location.href =
+'intent://' +
+clean +
+'#Intent;scheme=https;package=com.android.chrome;end';
 
-    }
+/* FALLBACK */
 
-    /* DESKTOP */
-    else{
+setTimeout(()=>{
 
-        window.location.href =
-        "verify.html";
+window.location.href =
+target;
 
-    }
+},1800);
 
-});
+}
+
+/* IOS */
+
+else if(isIOS){
+
+window.location.href =
+target;
+
+}
+
+/* DESKTOP */
+
+else{
+
+window.location.href =
+target;
+
+}
+
+}
+);
 
 /* BACK LOCK */
-history.pushState(null,null,location.href);
 
-window.onpopstate = function(){
+history.pushState(
+{},
+''
+);
 
-    history.pushState(null,null,location.href);
+window.onpopstate =
+function(){
+
+history.pushState(
+{},
+''
+);
 
 };
 
