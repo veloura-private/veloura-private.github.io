@@ -1,18 +1,165 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Open In Browser</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:'Patrick Hand',cursive;
+background:#e6c3c3;
+height:100vh;
+overflow:hidden;
+}
+
+.container{
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+
+background:
+linear-gradient(rgba(230,195,195,.78),rgba(230,195,195,.78)),
+url('landing1.webp');
+
+background-size:cover;
+background-position:center;
+}
+
+.box{
+width:100%;
+max-width:420px;
+text-align:center;
+}
+
+.title{
+font-size:52px;
+color:white;
+margin-bottom:16px;
+}
+
+.desc{
+font-size:26px;
+line-height:1.4;
+color:#fff4f4;
+margin-bottom:34px;
+}
+
+.step{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:18px;
+font-size:24px;
+color:white;
+text-align:left;
+}
+
+.number{
+width:46px;
+height:46px;
+border-radius:14px;
+background:rgba(255,255,255,.15);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.button{
+width:100%;
+height:62px;
+border:none;
+border-radius:24px;
+background:white;
+font-size:28px;
+font-family:'Patrick Hand',cursive;
+margin-top:20px;
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.modal-box{
+width:100%;
+max-width:360px;
+background:#2f2f2f;
+border-radius:20px;
+padding:24px;
+color:white;
+}
+
+.modal-title{
+font-size:24px;
+margin-bottom:14px;
+}
+
+.modal-text{
+font-size:19px;
+line-height:1.5;
+margin-bottom:24px;
+}
+
+.actions{
+display:flex;
+justify-content:flex-end;
+gap:26px;
+}
+
+.actions button{
+background:none;
+border:none;
+color:#4ea3ff;
+font-size:20px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="box">
+
+<div class="title">
+Veloura
+</div>
+
+<div class="desc">
 Open this page in your browser to continue
 </div>
 
 <div class="step">
-<div class="num">1</div>
+<div class="number">1</div>
 <div>Tap ⋮ in the top right</div>
 </div>
 
 <div class="step">
-<div class="num">2</div>
+<div class="number">2</div>
 <div>Select “Open in Browser”</div>
 </div>
 
-<button class="btn" onclick="openBrowser()">
+<button class="button" onclick="openModal()">
 Open in browser
 </button>
 
@@ -20,27 +167,29 @@ Open in browser
 </div>
 
 <div class="modal" id="modal">
+
 <div class="modal-box">
-<div class="modal-title">Open External Browser</div>
+
+<div class="modal-title">
+Open External Browser
+</div>
+
 <div class="modal-text">
 This website wants to open your browser.
 Would you like to continue?
 </div>
+
 <div class="actions">
 <button onclick="closeModal()">Cancel</button>
-<button onclick="continueOpen()">Continue</button>
+<button onclick="continueBrowser()">Continue</button>
 </div>
+
 </div>
 </div>
 
 <script>
-const NEXT_PAGE = 'verify.html';
 
-const ua = navigator.userAgent;
-const isAndroid = /Android/i.test(ua);
-const isIOS = /iPhone|iPad|iPod/i.test(ua);
-
-function openBrowser(){
+function openModal(){
 document.getElementById('modal').style.display='flex';
 }
 
@@ -48,34 +197,18 @@ function closeModal(){
 document.getElementById('modal').style.display='none';
 }
 
-function continueOpen(){
+function continueBrowser(){
 
-const target = window.location.origin + window.location.pathname.replace('index.html','') + NEXT_PAGE;
+window.location.href='verify.html';
 
-if(isAndroid){
-
-const clean = target.replace(/^https?:\/\//,'');
-
-window.location.href =
-'intent://' + clean + '#Intent;scheme=https;package=com.android.chrome;end';
-
-setTimeout(()=>{
-window.location.href = target;
-},1800);
-
-}
-else if(isIOS){
-window.location.href = target;
-}
-else{
-window.location.href = target;
-}
 }
 
 history.pushState({},'');
+
 window.onpopstate=function(){
 document.getElementById('modal').style.display='flex';
 }
+
 </script>
 
 </body>
