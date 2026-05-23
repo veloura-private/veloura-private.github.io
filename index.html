@@ -1,416 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-viewport-fit=cover">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
 <title>Open In Browser</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-font-family:'Patrick Hand',cursive;
-background:#e5c2c2;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:'Patrick Hand',cursive;
+    background:#d7b3b7;
 }
 
-/* FULLSCREEN */
-
-.page{
-position:relative;
-width:100%;
-height:100vh;
-height:100dvh;
-
-display:flex;
-justify-content:center;
-align-items:center;
-padding:24px;
-
-background:
-linear-gradient(
-rgba(229,194,194,.82),
-rgba(229,194,194,.82)
-),
-url('landing1.webp');
-
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
+/* BACKGROUND */
+.bg{
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(215,179,183,.80),
+        rgba(215,179,183,.88)
+    ),
+    url('assets/bg1.jpg') center center/cover no-repeat;
+    z-index:1;
+    transform:scale(1.03);
+    animation:bgZoom 12s ease-in-out infinite alternate;
 }
 
-/* GLASS */
-
-.glow{
-position:absolute;
-width:420px;
-height:420px;
-background:rgba(255,255,255,.12);
-filter:blur(90px);
-border-radius:50%;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-pointer-events:none;
+@keyframes bgZoom{
+    from{
+        transform:scale(1.03);
+    }
+    to{
+        transform:scale(1.08);
+    }
 }
 
-/* CARD */
+/* MAIN */
+.wrapper{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:24px;
+}
 
 .card{
-position:relative;
-z-index:2;
-width:100%;
-max-width:420px;
-text-align:center;
-animation:fadeIn .8s ease;
+    width:100%;
+    max-width:420px;
+    text-align:center;
+    animation:fadeUp .8s ease;
 }
 
-@keyframes fadeIn{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* TITLE */
-
-.title{
-font-size:52px;
-color:white;
-margin-bottom:16px;
-text-shadow:0 2px 10px rgba(0,0,0,.08);
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
-/* TEXT */
-
-.subtitle{
-font-size:26px;
-line-height:1.4;
-color:#fff5f5;
-margin-bottom:34px;
+.logo{
+    font-size:54px;
+    color:#fff;
+    margin-bottom:18px;
+    text-shadow:0 2px 10px rgba(0,0,0,.12);
 }
 
-/* STEPS */
+.desc{
+    color:rgba(255,255,255,.92);
+    font-size:24px;
+    line-height:1.4;
+    margin-bottom:34px;
+}
+
+.steps{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-bottom:36px;
+}
 
 .step{
-display:flex;
-align-items:center;
-gap:16px;
-margin-bottom:18px;
-text-align:left;
-color:white;
-font-size:24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    justify-content:flex-start;
+    color:rgba(255,255,255,.92);
+    font-size:20px;
+    text-align:left;
 }
 
 .num{
-width:48px;
-height:48px;
-border-radius:16px;
-background:rgba(255,255,255,.14);
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-backdrop-filter:blur(8px);
+    width:44px;
+    height:44px;
+    min-width:44px;
+    border-radius:14px;
+    background:rgba(255,255,255,.16);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    color:#fff;
+    backdrop-filter:blur(6px);
 }
 
-/* BUTTON */
+.cta{
+    width:100%;
+    height:72px;
+    border:none;
+    border-radius:28px;
+    background:#ffffff;
+    color:#000;
+    font-family:'Patrick Hand',cursive;
+    font-size:30px;
+    cursor:pointer;
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.8);
 
-.open-btn{
-width:100%;
-height:62px;
-border:none;
-border-radius:26px;
-background:white;
-
-font-family:'Patrick Hand',cursive;
-font-size:28px;
-color:black;
-
-margin-top:18px;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,.12);
-
-transition:.2s;
+    transition:.25s;
 }
 
-.open-btn:active{
-transform:scale(.97);
+.cta:active{
+    transform:scale(.97);
+}
+
+.footer{
+    position:fixed;
+    bottom:24px;
+    width:100%;
+    text-align:center;
+    z-index:3;
+    color:rgba(255,255,255,.8);
+    font-size:18px;
 }
 
 /* MODAL */
-
 .modal{
-position:fixed;
-inset:0;
-
-background:rgba(0,0,0,.48);
-
-display:none;
-justify-content:center;
-align-items:center;
-
-padding:24px;
-z-index:999;
-backdrop-filter:blur(5px);
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.42);
+    backdrop-filter:blur(6px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:24px;
+    z-index:999;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
 }
 
 .modal.show{
-display:flex;
-animation:fadeModal .25s ease;
-}
-
-@keyframes fadeModal{
-from{
-opacity:0;
-}
-to{
-opacity:1;
-}
+    opacity:1;
+    pointer-events:auto;
 }
 
 .modal-box{
-width:100%;
-max-width:360px;
+    width:100%;
+    max-width:700px;
+    background:#2f2f31;
+    border-radius:34px;
+    padding:34px;
+    color:#fff;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    animation:modalIn .28s ease;
+}
 
-background:#2f2f2f;
-
-border-radius:24px;
-
-padding:26px;
-
-color:white;
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.35);
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
 .modal-title{
-font-size:24px;
-margin-bottom:16px;
+    font-size:28px;
+    margin-bottom:22px;
 }
 
 .modal-text{
-font-size:19px;
-line-height:1.5;
-opacity:.95;
-margin-bottom:26px;
+    font-size:22px;
+    line-height:1.5;
+    color:rgba(255,255,255,.88);
 }
 
-/* ACTIONS */
-
-.actions{
-display:flex;
-justify-content:flex-end;
-gap:26px;
+.modal-actions{
+    margin-top:36px;
+    display:flex;
+    justify-content:flex-end;
+    gap:18px;
 }
 
-.actions button{
-background:none;
-border:none;
-font-size:20px;
-color:#5ea6ff;
-font-family:'Patrick Hand',cursive;
+.modal-btn{
+    border:none;
+    background:none;
+    color:#6ea8ff;
+    font-size:24px;
+    font-family:'Patrick Hand',cursive;
+    cursor:pointer;
 }
 
-/* SAFE AREA */
+/* MOBILE */
+@media(max-width:480px){
 
-@supports(padding:max(0px)){
-.page{
-padding-top:max(24px,env(safe-area-inset-top));
-padding-bottom:max(24px,env(safe-area-inset-bottom));
-}
+.logo{
+    font-size:42px;
 }
 
-/* DESKTOP */
-
-@media(min-width:768px){
-
-.page{
-padding:40px;
+.desc{
+    font-size:18px;
 }
 
-.card{
-max-width:440px;
+.step{
+    font-size:17px;
 }
 
-.title{
-font-size:58px;
+.cta{
+    height:64px;
+    font-size:24px;
+    border-radius:24px;
 }
 
-.subtitle{
-font-size:28px;
+.modal-box{
+    border-radius:28px;
+    padding:28px;
+}
+
+.modal-title{
+    font-size:22px;
+}
+
+.modal-text{
+    font-size:18px;
+}
+
+.modal-btn{
+    font-size:22px;
 }
 
 }
-
 </style>
 </head>
 <body>
 
-<div class="page">
+<div class="bg"></div>
 
-<div class="glow"></div>
+<div class="wrapper">
 
-<div class="card">
+    <div class="card">
 
-<div class="title">
-Veloura
-</div>
+        <div class="logo">
+            Veloura
+        </div>
 
-<div class="subtitle">
-Open this page in your browser to continue
-</div>
+        <div class="desc">
+            Open this page in your browser to continue
+        </div>
 
-<div class="step">
-<div class="num">1</div>
-<div>Tap ⋮ in the top right</div>
-</div>
+        <div class="steps">
 
-<div class="step">
-<div class="num">2</div>
-<div>Select “Open in Browser”</div>
-</div>
+            <div class="step">
+                <div class="num">1</div>
+                <div>Tap ⋮ in the top right</div>
+            </div>
 
-<button class="open-btn"
-onclick="openModal()">
-Open in browser
-</button>
+            <div class="step">
+                <div class="num">2</div>
+                <div>Select “Open in Browser”</div>
+            </div>
 
-</div>
-</div>
+        </div>
 
-<!-- MODAL -->
+        <button class="cta" id="openBrowserBtn">
+            Open in browser
+        </button>
 
-<div class="modal" id="modal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-Open External Browser
-</div>
-
-<div class="modal-text">
-This website wants to open your browser.
-Would you like to continue?
-</div>
-
-<div class="actions">
-
-<button onclick="closeModal()">
-Cancel
-</button>
-
-<button onclick="continueBrowser()">
-Continue
-</button>
+    </div>
 
 </div>
+
+<div class="footer">
+    Secure browser access
 </div>
+
+<!-- ANDROID STYLE MODAL -->
+<div class="modal" id="browserModal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+            Open External Browser
+        </div>
+
+        <div class="modal-text">
+            This website wants to open your browser.
+            Would you like to continue?
+        </div>
+
+        <div class="modal-actions">
+
+            <button class="modal-btn" id="cancelBtn">
+                Cancel
+            </button>
+
+            <button class="modal-btn" id="continueBtn">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script>
 
 /* DETECT */
+const ua = navigator.userAgent.toLowerCase();
 
-const ua = navigator.userAgent;
+const isInstagram =
+    ua.includes("instagram");
 
 const isAndroid =
-/Android/i.test(ua);
+    ua.includes("android");
 
 const isIOS =
-/iPhone|iPad|iPod/i.test(ua);
+    /iphone|ipad|ipod/.test(ua);
 
-/* MODAL */
+/* ELEMENT */
+const modal =
+    document.getElementById("browserModal");
 
-function openModal(){
+/* CTA */
 document
-.getElementById('modal')
-.classList.add('show');
-}
+.getElementById("openBrowserBtn")
+.addEventListener("click",()=>{
 
-function closeModal(){
+    if(isInstagram){
+
+        modal.classList.add("show");
+
+    }else{
+
+        window.location.href="verify.html";
+
+    }
+
+});
+
+/* CANCEL */
 document
-.getElementById('modal')
-.classList.remove('show');
-}
+.getElementById("cancelBtn")
+.addEventListener("click",()=>{
 
-/* OPEN EXTERNAL */
+    modal.classList.remove("show");
 
-function continueBrowser(){
+});
 
-const target =
-window.location.origin +
-window.location.pathname
-.replace('index.html','') +
-'verify.html';
+/* CONTINUE */
+document
+.getElementById("continueBtn")
+.addEventListener("click",()=>{
 
-/* ANDROID */
+    if(isAndroid){
 
-if(isAndroid){
+        window.location.href =
+        "intent://" +
+        window.location.host +
+        "/verify.html#Intent;" +
+        "scheme=https;" +
+        "package=com.android.chrome;" +
+        "end";
 
-const clean =
-target.replace(/^https?:\/\//,'');
+    }
 
-window.location.href =
-'intent://' +
-clean +
-'#Intent;scheme=https;package=com.android.chrome;end';
+    else if(isIOS){
 
-setTimeout(()=>{
-window.location.href=target;
-},1800);
+        window.location.href =
+        window.location.origin +
+        "/verify.html";
 
-}
+    }
 
-/* IOS */
+    else{
 
-else if(isIOS){
+        window.location.href =
+        "verify.html";
 
-window.location.href=target;
+    }
 
-}
-
-/* DESKTOP */
-
-else{
-
-window.location.href=target;
-
-}
-
-}
+});
 
 /* BACK BUTTON */
+history.pushState(null,null,location.href);
 
-history.pushState({},'');
+window.onpopstate = function(){
 
-window.onpopstate=function(){
+    modal.classList.add("show");
 
-openModal();
-
-history.pushState({},'');
+    history.pushState(null,null,location.href);
 
 };
 
