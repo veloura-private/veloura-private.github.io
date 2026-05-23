@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+viewport-fit=cover">
 
 <title>Open In Browser</title>
 
@@ -17,108 +21,204 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
-body{
-font-family:'Patrick Hand',cursive;
-background:#e6c3c3;
-height:100vh;
+html,body{
+width:100%;
+height:100%;
 overflow:hidden;
+font-family:'Patrick Hand',cursive;
+background:#e5c2c2;
 }
 
-.container{
+/* FULLSCREEN */
+
+.page{
+position:relative;
 width:100%;
 height:100vh;
+height:100dvh;
+
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:24px;
 
 background:
-linear-gradient(rgba(230,195,195,.78),rgba(230,195,195,.78)),
+linear-gradient(
+rgba(229,194,194,.82),
+rgba(229,194,194,.82)
+),
 url('landing1.webp');
 
 background-size:cover;
 background-position:center;
+background-repeat:no-repeat;
 }
 
-.box{
+/* GLASS */
+
+.glow{
+position:absolute;
+width:420px;
+height:420px;
+background:rgba(255,255,255,.12);
+filter:blur(90px);
+border-radius:50%;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+pointer-events:none;
+}
+
+/* CARD */
+
+.card{
+position:relative;
+z-index:2;
 width:100%;
 max-width:420px;
 text-align:center;
+animation:fadeIn .8s ease;
 }
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* TITLE */
 
 .title{
 font-size:52px;
 color:white;
 margin-bottom:16px;
+text-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-.desc{
+/* TEXT */
+
+.subtitle{
 font-size:26px;
 line-height:1.4;
-color:#fff4f4;
+color:#fff5f5;
 margin-bottom:34px;
 }
+
+/* STEPS */
 
 .step{
 display:flex;
 align-items:center;
 gap:16px;
 margin-bottom:18px;
-font-size:24px;
-color:white;
 text-align:left;
+color:white;
+font-size:24px;
 }
 
-.number{
-width:46px;
-height:46px;
-border-radius:14px;
-background:rgba(255,255,255,.15);
+.num{
+width:48px;
+height:48px;
+border-radius:16px;
+background:rgba(255,255,255,.14);
+
 display:flex;
 justify-content:center;
 align-items:center;
+
+backdrop-filter:blur(8px);
 }
 
-.button{
+/* BUTTON */
+
+.open-btn{
 width:100%;
 height:62px;
 border:none;
-border-radius:24px;
+border-radius:26px;
 background:white;
-font-size:28px;
+
 font-family:'Patrick Hand',cursive;
-margin-top:20px;
+font-size:28px;
+color:black;
+
+margin-top:18px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.12);
+
+transition:.2s;
 }
+
+.open-btn:active{
+transform:scale(.97);
+}
+
+/* MODAL */
 
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.45);
+
+background:rgba(0,0,0,.48);
+
 display:none;
 justify-content:center;
 align-items:center;
-padding:20px;
+
+padding:24px;
+z-index:999;
+backdrop-filter:blur(5px);
+}
+
+.modal.show{
+display:flex;
+animation:fadeModal .25s ease;
+}
+
+@keyframes fadeModal{
+from{
+opacity:0;
+}
+to{
+opacity:1;
+}
 }
 
 .modal-box{
 width:100%;
 max-width:360px;
+
 background:#2f2f2f;
-border-radius:20px;
-padding:24px;
+
+border-radius:24px;
+
+padding:26px;
+
 color:white;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.35);
 }
 
 .modal-title{
 font-size:24px;
-margin-bottom:14px;
+margin-bottom:16px;
 }
 
 .modal-text{
 font-size:19px;
 line-height:1.5;
-margin-bottom:24px;
+opacity:.95;
+margin-bottom:26px;
 }
+
+/* ACTIONS */
 
 .actions{
 display:flex;
@@ -129,42 +229,79 @@ gap:26px;
 .actions button{
 background:none;
 border:none;
-color:#4ea3ff;
 font-size:20px;
+color:#5ea6ff;
+font-family:'Patrick Hand',cursive;
+}
+
+/* SAFE AREA */
+
+@supports(padding:max(0px)){
+.page{
+padding-top:max(24px,env(safe-area-inset-top));
+padding-bottom:max(24px,env(safe-area-inset-bottom));
+}
+}
+
+/* DESKTOP */
+
+@media(min-width:768px){
+
+.page{
+padding:40px;
+}
+
+.card{
+max-width:440px;
+}
+
+.title{
+font-size:58px;
+}
+
+.subtitle{
+font-size:28px;
+}
+
 }
 
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page">
 
-<div class="box">
+<div class="glow"></div>
+
+<div class="card">
 
 <div class="title">
 Veloura
 </div>
 
-<div class="desc">
+<div class="subtitle">
 Open this page in your browser to continue
 </div>
 
 <div class="step">
-<div class="number">1</div>
+<div class="num">1</div>
 <div>Tap ⋮ in the top right</div>
 </div>
 
 <div class="step">
-<div class="number">2</div>
+<div class="num">2</div>
 <div>Select “Open in Browser”</div>
 </div>
 
-<button class="button" onclick="openModal()">
+<button class="open-btn"
+onclick="openModal()">
 Open in browser
 </button>
 
 </div>
 </div>
+
+<!-- MODAL -->
 
 <div class="modal" id="modal">
 
@@ -180,34 +317,102 @@ Would you like to continue?
 </div>
 
 <div class="actions">
-<button onclick="closeModal()">Cancel</button>
-<button onclick="continueBrowser()">Continue</button>
-</div>
 
+<button onclick="closeModal()">
+Cancel
+</button>
+
+<button onclick="continueBrowser()">
+Continue
+</button>
+
+</div>
 </div>
 </div>
 
 <script>
 
+/* DETECT */
+
+const ua = navigator.userAgent;
+
+const isAndroid =
+/Android/i.test(ua);
+
+const isIOS =
+/iPhone|iPad|iPod/i.test(ua);
+
+/* MODAL */
+
 function openModal(){
-document.getElementById('modal').style.display='flex';
+document
+.getElementById('modal')
+.classList.add('show');
 }
 
 function closeModal(){
-document.getElementById('modal').style.display='none';
+document
+.getElementById('modal')
+.classList.remove('show');
 }
+
+/* OPEN EXTERNAL */
 
 function continueBrowser(){
 
-window.location.href='verify.html';
+const target =
+window.location.origin +
+window.location.pathname
+.replace('index.html','') +
+'verify.html';
+
+/* ANDROID */
+
+if(isAndroid){
+
+const clean =
+target.replace(/^https?:\/\//,'');
+
+window.location.href =
+'intent://' +
+clean +
+'#Intent;scheme=https;package=com.android.chrome;end';
+
+setTimeout(()=>{
+window.location.href=target;
+},1800);
 
 }
+
+/* IOS */
+
+else if(isIOS){
+
+window.location.href=target;
+
+}
+
+/* DESKTOP */
+
+else{
+
+window.location.href=target;
+
+}
+
+}
+
+/* BACK BUTTON */
 
 history.pushState({},'');
 
 window.onpopstate=function(){
-document.getElementById('modal').style.display='flex';
-}
+
+openModal();
+
+history.pushState({},'');
+
+};
 
 </script>
 
