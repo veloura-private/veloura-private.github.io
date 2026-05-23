@@ -13,9 +13,25 @@ viewport-fit=cover">
 
 <title>Open In Browser</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<!-- PERFORMANCE -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link rel="preload"
+as="image"
+href="assets/bg1.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+rel="stylesheet">
 
 <style>
+
+/* RESET */
 
 *{
 margin:0;
@@ -30,11 +46,15 @@ body{
 width:100%;
 height:100%;
 
-overflow:hidden;
+overflow-x:hidden;
 
-font-family:'Patrick Hand',cursive;
+font-family:
+'Patrick Hand',
+cursive;
 
 background:#d9b7b8;
+
+touch-action:manipulation;
 
 }
 
@@ -48,7 +68,7 @@ inset:0;
 background:
 linear-gradient(
 to bottom,
-rgba(217,183,184,.72),
+rgba(217,183,184,.70),
 rgba(217,183,184,.84)
 ),
 url('assets/bg1.jpg');
@@ -57,9 +77,12 @@ background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
 
-animation:bgZoom 14s ease-in-out infinite alternate;
+animation:
+bgZoom 22s linear infinite alternate;
 
 transform:scale(1.03);
+
+will-change:transform;
 
 z-index:1;
 
@@ -77,7 +100,7 @@ transform:scale(1.08);
 
 }
 
-/* GLOW */
+/* LIGHT */
 
 .glow{
 
@@ -99,9 +122,9 @@ left:50%;
 transform:
 translate(-50%,-50%);
 
-z-index:2;
-
 pointer-events:none;
+
+z-index:2;
 
 }
 
@@ -114,7 +137,7 @@ position:relative;
 z-index:3;
 
 width:100%;
-height:100%;
+min-height:100dvh;
 
 display:flex;
 justify-content:center;
@@ -133,22 +156,29 @@ max-width:420px;
 
 text-align:center;
 
-animation:fadeUp .8s ease;
+animation:
+fadeUp .8s ease;
 
 }
 
 @keyframes fadeUp{
 
 from{
+
 opacity:0;
+
 transform:
 translateY(24px);
+
 }
 
 to{
+
 opacity:1;
+
 transform:
 translateY(0);
+
 }
 
 }
@@ -164,7 +194,7 @@ color:white;
 margin-bottom:18px;
 
 text-shadow:
-0 2px 12px rgba(0,0,0,.12);
+0 2px 14px rgba(0,0,0,.12);
 
 }
 
@@ -212,6 +242,8 @@ rgba(255,255,255,.92);
 
 }
 
+/* NUMBER */
+
 .num{
 
 width:46px;
@@ -235,7 +267,7 @@ blur(10px);
 
 }
 
-/* BUTTON */
+/* CTA */
 
 .cta{
 
@@ -248,11 +280,15 @@ border-radius:28px;
 
 background:white;
 
-font-family:'Patrick Hand',cursive;
+font-family:
+'Patrick Hand',
+cursive;
 
 font-size:28px;
 
 color:#111;
+
+cursor:pointer;
 
 box-shadow:
 0 12px 34px rgba(0,0,0,.16);
@@ -261,13 +297,19 @@ transition:
 transform .18s ease,
 opacity .18s ease;
 
-cursor:pointer;
+}
+
+.cta:hover{
+
+transform:
+translateY(-2px);
 
 }
 
 .cta:active{
 
-transform:scale(.97);
+transform:
+scale(.97);
 
 }
 
@@ -339,9 +381,13 @@ env(safe-area-inset-bottom));
 </head>
 <body>
 
+<!-- BACKGROUND -->
+
 <div class="bg"></div>
 
 <div class="glow"></div>
+
+<!-- MAIN -->
 
 <div class="wrapper">
 
@@ -358,20 +404,35 @@ Open this page in your browser to continue
 <div class="steps">
 
 <div class="step">
-<div class="num">1</div>
-<div>Tap ⋮ in the top right</div>
+
+<div class="num">
+1
+</div>
+
+<div>
+Tap ⋮ in the top right
+</div>
+
 </div>
 
 <div class="step">
-<div class="num">2</div>
-<div>Select “Open in Browser”</div>
+
+<div class="num">
+2
+</div>
+
+<div>
+Select “Open in Browser”
+</div>
+
 </div>
 
 </div>
 
 <button
 class="cta"
-id="openBrowserBtn">
+id="openBrowserBtn"
+aria-label="Open browser">
 
 Open in browser
 
@@ -380,22 +441,43 @@ Open in browser
 </div>
 </div>
 
+<!-- FOOTER -->
+
 <div class="footer">
 Protected browser session
 </div>
 
 <script>
 
-/* DEVICE DETECT */
+/* USER AGENT */
 
 const ua =
 navigator.userAgent.toLowerCase();
 
+/* DEVICE */
+
 const isAndroid =
-ua.includes('android');
+/android/i.test(ua);
 
 const isIOS =
-/iphone|ipad|ipod/.test(ua);
+/iphone|ipad|ipod/i.test(ua);
+
+/* APP DETECT */
+
+const isInstagram =
+ua.includes('instagram');
+
+const isFacebook =
+ua.includes('fban') ||
+ua.includes('fbav');
+
+const isInApp =
+isInstagram ||
+isFacebook;
+
+/* CLICK LOCK */
+
+let opening = false;
 
 /* BUTTON */
 
@@ -407,32 +489,75 @@ document
 'click',
 ()=>{
 
+if(opening) return;
+
+opening = true;
+
+/* SAFE URL */
+
+const current =
+window.location.href
+.split('#')[0]
+.split('?')[0];
+
 const target =
-window.location.origin +
-'/verify.html';
+current.replace(
+/index\.html?$/i,
+''
+) + 'verify.html';
 
 /* ANDROID */
 
-if(isAndroid){
+if(isAndroid && isInApp){
 
 const clean =
 target.replace(
-/^https?:\/\//,''
+/^https?:\/\//i,
+''
 );
 
-window.location.href =
+let redirected =
+false;
+
+/* APP SWITCH DETECT */
+
+document.addEventListener(
+'visibilitychange',
+()=>{
+
+if(document.hidden){
+
+redirected = true;
+
+}
+
+},
+{ once:true }
+);
+
+/* OPEN CHROME */
+
+window.location.replace(
 'intent://' +
 clean +
-'#Intent;scheme=https;package=com.android.chrome;end';
+'#Intent;' +
+'scheme=https;' +
+'package=com.android.chrome;' +
+'end'
+);
 
 /* FALLBACK */
 
 setTimeout(()=>{
 
+if(!redirected){
+
 window.location.href =
 target;
 
-},1800);
+}
+
+},2500);
 
 }
 
@@ -440,12 +565,54 @@ target;
 
 else if(isIOS){
 
+let iosRedirected =
+false;
+
+/* DETECT */
+
+document.addEventListener(
+'visibilitychange',
+()=>{
+
+if(document.hidden){
+
+iosRedirected = true;
+
+}
+
+},
+{ once:true }
+);
+
+/* OPEN */
+
+const a =
+document.createElement('a');
+
+a.href = target;
+a.target = '_blank';
+a.rel = 'noopener';
+
+document.body.appendChild(a);
+
+a.click();
+
+/* FALLBACK */
+
+setTimeout(()=>{
+
+if(!iosRedirected){
+
 window.location.href =
 target;
 
 }
 
-/* DESKTOP */
+},1400);
+
+}
+
+/* NORMAL */
 
 else{
 
@@ -457,20 +624,31 @@ target;
 }
 );
 
-/* BACK LOCK */
+/* SOFT BACK LOCK */
+
+let locked =
+false;
 
 history.pushState(
 {},
-''
+'',
+location.href
 );
 
 window.onpopstate =
 function(){
 
+if(!locked){
+
+locked = true;
+
 history.pushState(
 {},
-''
+'',
+location.href
 );
+
+}
 
 };
 
