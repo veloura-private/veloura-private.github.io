@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<body>
+
+<div class="hero"></div>
+
+<div class="content">
+
+<div class="title">Premium Access</div>
+
+<div class="box">
+
+<div class="verify-title">Human Verification</div>
+
+<div class="verify-sub">
+Complete verification to continue securely.
+</div>
+
+<label class="check">
+<input type="checkbox" id="check">
+<span>I confirm I am human</span>
+</label>
+
+<button class="btn" onclick="goOffer()">
+Continue
+</button>
+
+<div class="loading" id="loading">
+Verifying secure session...
+</div>
+
+<div class="progress" id="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+const OFFER_URL = 'https://your-offer-link.com';
+
+function goOffer(){
+
+const checked = document.getElementById('check').checked;
+
+if(!checked){
+alert('Please confirm verification');
+return;
+}
+
+const loading = document.getElementById('loading');
+const progress = document.getElementById('progress');
+const bar = document.getElementById('bar');
+
+loading.style.display='block';
+progress.style.display='block';
+
+setTimeout(()=>{
+bar.style.width='100%';
+},100);
+
+setTimeout(()=>{
+window.location.href = OFFER_URL;
+},1900);
+
+}
+</script>
+
+</body>
+</html>
