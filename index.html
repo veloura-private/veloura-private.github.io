@@ -1,643 +1,1188 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Jemand in deiner Nähe ist online</title>
-<meta name="description" content="Private Chats mit echten Menschen in deiner Nähe." />
-<meta name="theme-color" content="#050816" />
-<meta name="robots" content="noindex,nofollow">
-<link rel="preload" as="image" href="hero.webp" />
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="
+width=device-width,
+initial-scale=1.0,
+viewport-fit=cover,
+maximum-scale=1.0,
+user-scalable=no
+">
+
+<title>Secure Access</title>
+
+<meta name="theme-color" content="#d7b0b0">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+rel="stylesheet">
 
 <style>
-:root{
---bg:#050816;
---text:#ffffff;
---muted:#a1a1aa;
---primary:#28d7ff;
---primary2:#2563eb;
---success:#22c55e;
-}
+
+/* =========================================
+RESET
+========================================= */
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#d7b0b0;
 }
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:var(--bg);
-color:var(--text);
-min-height:100dvh;
-overflow-x:hidden;
--webkit-font-smoothing:antialiased;
+    font-family:'Patrick Hand', cursive;
+    position:relative;
+    transition:opacity .22s ease;
 }
 
-img{
-display:block;
-max-width:100%;
+
+/* =========================================
+COMMON
+========================================= */
+
+.hidden{
+    display:none!important;
 }
 
-a{
-text-decoration:none;
-}
-
-.wrapper{
-width:100%;
-max-width:520px;
-margin:auto;
-min-height:100dvh;
-padding-bottom:120px;
-position:relative;
+.page{
+    width:100%;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
 }
 
 .bg{
-position:fixed;
-inset:0;
-background:radial-gradient(circle at top,rgba(40,215,255,.14),transparent 35%);
-pointer-events:none;
-z-index:0;
-}
-
-.hero{
-position:relative;
-overflow:hidden;
-}
-
-.hero img{
-width:100%;
-height:58vh;
-object-fit:cover;
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-color:#d7b0b0;
+    transform:scale(1.04);
+    animation:zoom 18s ease-in-out infinite alternate;
 }
 
 .overlay{
-position:absolute;
-inset:0;
-background:linear-gradient(to top,rgba(5,8,22,.96),rgba(5,8,22,.12));
+    position:absolute;
+    inset:0;
 }
 
-.content{
-position:relative;
-z-index:2;
-padding:18px;
-margin-top:-110px;
+.fade{
+    animation:fadeUp .4s ease;
 }
 
 .glass{
-background:rgba(8,12,28,.76);
-border:1px solid rgba(255,255,255,.08);
-border-radius:32px;
-padding:22px;
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
-box-shadow:0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
 }
 
-.live{
-display:inline-flex;
-align-items:center;
-gap:10px;
-padding:10px 14px;
-border-radius:999px;
-background:rgba(40,215,255,.08);
-border:1px solid rgba(40,215,255,.14);
-color:#b8f4ff;
-font-size:13px;
-margin-bottom:18px;
+button{
+    touch-action:manipulation;
 }
 
-.dot{
-width:9px;
-height:9px;
-border-radius:50%;
-background:var(--success);
-animation:pulse 1.5s infinite;
+
+/* =========================================
+DESKTOP FRAME
+========================================= */
+
+.desktop-frame{
+    width:100%;
+    max-width:430px;
+    height:100vh;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    background:#d7b0b0;
 }
 
-@keyframes pulse{
-0%{transform:scale(1);opacity:1;}
-50%{transform:scale(1.15);opacity:.5;}
-100%{transform:scale(1);opacity:1;}
+
+/* =========================================
+LANDING 1
+========================================= */
+
+#landing1{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:28px;
+    padding-bottom:
+    calc(
+    28px +
+    env(safe-area-inset-bottom)
+    );
 }
 
-h1{
-font-size:42px;
-line-height:.94;
-letter-spacing:-2px;
-font-weight:900;
-margin-bottom:14px;
+#landing1 .bg{
+    background-image:url('landing1.webp');
+    opacity:.18;
 }
 
-h1 span{
-color:var(--primary);
+#landing1 .overlay{
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(215,176,176,.90),
+        rgba(215,176,176,.82)
+    );
 }
 
-.sub{
-font-size:15px;
-line-height:1.7;
-color:#d4d4d8;
-margin-bottom:18px;
+.card{
+    width:100%;
+    max-width:420px;
+    text-align:center;
+    position:relative;
+    z-index:5;
 }
 
-.tags{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:18px;
+.title{
+    font-size:
+    clamp(40px,9vw,56px);
+
+    color:#fff6f6;
+
+    margin-bottom:16px;
 }
 
-.tag{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.06);
-padding:10px 14px;
-border-radius:999px;
-font-size:12px;
-color:#d4d4d8;
+.subtitle{
+    font-size:
+    clamp(22px,5vw,30px);
+
+    line-height:1.45;
+
+    color:#fff6f6;
+
+    margin-bottom:42px;
 }
 
-.preview{
-display:flex;
-align-items:center;
-gap:12px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.06);
-border-radius:22px;
-padding:14px;
-margin-bottom:18px;
+.step{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:22px;
+    color:#fff6f6;
+    font-size:24px;
 }
 
-.preview-avatar{
-width:52px;
-height:52px;
-border-radius:50%;
-object-fit:cover;
+.num{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:
+    rgba(255,255,255,.12);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-.preview-text strong{
-display:block;
-font-size:14px;
-margin-bottom:4px;
+.open-btn{
+    width:100%;
+    height:78px;
+    margin-top:34px;
+
+    border:none;
+
+    border-radius:28px;
+
+    background:white;
+
+    color:#111;
+
+    font-family:'Patrick Hand', cursive;
+
+    font-size:32px;
+
+    box-shadow:
+    0 12px 34px rgba(0,0,0,.12);
+
+    transition:.16s;
 }
 
-.preview-text p{
-font-size:13px;
-color:#d4d4d8;
-}
-
-.typing{
-display:flex;
-gap:4px;
-margin-top:8px;
-}
-
-.typing span{
-width:6px;
-height:6px;
-border-radius:50%;
-background:var(--primary);
-animation:pulse 1s infinite;
-}
-
-.typing span:nth-child(2){animation-delay:.2s;}
-.typing span:nth-child(3){animation-delay:.4s;}
-
-.cta{
-display:flex;
-align-items:center;
-justify-content:center;
-width:100%;
-min-height:60px;
-border-radius:22px;
-font-size:17px;
-font-weight:800;
-color:#fff;
-background:linear-gradient(135deg,var(--primary),var(--primary2));
-box-shadow:0 12px 30px rgba(40,215,255,.22);
-transition:transform .2s ease,opacity .2s ease;
-}
-
-.cta:active{
-transform:scale(.98);
-}
-
-.social{
-display:flex;
-align-items:center;
-gap:12px;
-margin-top:18px;
-font-size:13px;
-color:var(--muted);
-}
-
-.avatars{
-display:flex;
-}
-
-.avatar{
-width:34px;
-height:34px;
-border-radius:50%;
-margin-left:-8px;
-border:2px solid #050816;
-}
-
-.activity{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:20px;
-}
-
-.activity-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.05);
-border-radius:18px;
-padding:14px;
-font-size:13px;
-color:#d4d4d8;
+.open-btn:active{
+    transform:scale(.985);
 }
 
 .footer{
-text-align:center;
-font-size:11px;
-color:#71717a;
-line-height:1.6;
-margin-top:22px;
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:
+    calc(
+    34px +
+    env(safe-area-inset-bottom)
+    );
+
+    text-align:center;
+
+    color:#fff5f5;
+
+    font-size:18px;
+
+    opacity:.9;
 }
 
-.sticky{
-position:fixed;
-left:14px;
-right:14px;
-bottom:14px;
-z-index:50;
-padding:8px;
-border-radius:24px;
-background:rgba(8,12,28,.55);
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,.05);
+
+/* =========================================
+LANDING 2
+========================================= */
+
+#landing2{
+    background:#d7b0b0;
 }
+
+.hero{
+    width:100%;
+    height:52vh;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-bg{
+    width:100%;
+    height:100%;
+    background-image:url('landing2.webp');
+    background-size:cover;
+    background-position:center top;
+    background-repeat:no-repeat;
+    background-color:#d7b0b0;
+    animation:zoom 20s ease infinite alternate;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0,0,0,.04),
+        #d7b0b0
+    );
+}
+
+.content2{
+    position:relative;
+    z-index:5;
+    padding:28px;
+    margin-top:-34px;
+    text-align:center;
+}
+
+.content2-title{
+    font-size:48px;
+    color:#111;
+    margin-bottom:28px;
+}
+
+.verify-box{
+    width:100%;
+    max-width:420px;
+    margin:auto;
+
+    padding:30px;
+
+    border-radius:28px;
+
+    background:
+    rgba(255,255,255,.26);
+
+    box-shadow:
+    0 12px 40px rgba(0,0,0,.08);
+}
+
+.verify-title{
+    font-size:34px;
+    margin-bottom:14px;
+}
+
+.verify-text{
+    font-size:24px;
+    line-height:1.45;
+    opacity:.84;
+    margin-bottom:24px;
+}
+
+.checkbox{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
+    font-size:22px;
+}
+
+.checkbox input{
+    width:22px;
+    height:22px;
+}
+
+.verify-btn{
+    width:100%;
+    height:76px;
+
+    border:none;
+
+    border-radius:24px;
+
+    background:#08132b;
+
+    color:white;
+
+    font-size:30px;
+
+    font-family:'Patrick Hand', cursive;
+
+    opacity:.45;
+
+    pointer-events:none;
+
+    transition:.25s;
+}
+
+.verify-btn.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.loading{
+    margin-top:22px;
+    font-size:22px;
+    display:none;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    border-radius:999px;
+    background:
+    rgba(255,255,255,.24);
+
+    overflow:hidden;
+
+    margin-top:18px;
+
+    display:none;
+}
+
+.bar{
+    width:0%;
+    height:100%;
+    background:#08132b;
+    transition:width 1.8s linear;
+}
+
+
+/* =========================================
+MODAL
+========================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    background:
+    rgba(0,0,0,.42);
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    padding:24px;
+
+    z-index:999999;
+}
+
+.modal-card{
+    width:100%;
+    max-width:360px;
+
+    background:#2f2f2f;
+
+    border-radius:26px;
+
+    padding:26px;
+
+    color:white;
+
+    animation:fadeUp .25s ease;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+.modal-title{
+    font-size:21px;
+    font-weight:600;
+    margin-bottom:14px;
+}
+
+.modal-text{
+    font-size:17px;
+    line-height:1.45;
+    margin-bottom:26px;
+    opacity:.94;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:28px;
+}
+
+.modal-btn{
+    border:none;
+    background:none;
+    color:#4ea3ff;
+    font-size:17px;
+    font-weight:600;
+}
+
+
+/* =========================================
+TOAST
+========================================= */
 
 .toast{
-position:fixed;
-left:14px;
-bottom:100px;
-z-index:60;
-background:rgba(8,12,28,.94);
-border:1px solid rgba(255,255,255,.08);
-padding:14px 16px;
-border-radius:18px;
-font-size:13px;
-color:#fff;
-opacity:0;
-transform:translateY(20px);
-transition:opacity .4s ease,transform .4s ease;
+    position:fixed;
+
+    left:50%;
+
+    bottom:
+    calc(
+    100px +
+    env(safe-area-inset-bottom)
+    );
+
+    transform:translateX(-50%);
+
+    background:#1f1f1f;
+
+    color:white;
+
+    padding:16px 28px;
+
+    border-radius:18px;
+
+    font-size:22px;
+
+    z-index:999999;
+
+    display:none;
+
+    animation:fadeToast .22s ease;
 }
 
-.toast.show{
-opacity:1;
-transform:translateY(0);
+
+/* =========================================
+LANDSCAPE FIX
+========================================= */
+
+@media (orientation:landscape){
+
+    .hero{
+        height:42vh;
+    }
+
+    .content2{
+        margin-top:-20px;
+    }
+
+    .content2-title{
+        font-size:38px;
+    }
+
+    .verify-box{
+        padding:22px;
+    }
+
 }
 
-.loader{
-position:fixed;
-inset:0;
-background:#050816;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:999;
-opacity:0;
-pointer-events:none;
-transition:opacity .3s ease;
+
+/* =========================================
+ANIMATION
+========================================= */
+
+@keyframes zoom{
+
+    from{
+        transform:scale(1.04);
+    }
+
+    to{
+        transform:scale(1.11);
+    }
+
 }
 
-.loader.show{
-opacity:1;
-pointer-events:auto;
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(14px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
-.spinner{
-width:44px;
-height:44px;
-border-radius:50%;
-border:3px solid rgba(255,255,255,.1);
-border-top-color:var(--primary);
-animation:spin .8s linear infinite;
-margin-bottom:18px;
+@keyframes fadeToast{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(-50%)
+        translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateX(-50%)
+        translateY(0);
+    }
+
 }
 
-@keyframes spin{
-to{transform:rotate(360deg);}
-}
-
-.loader p{
-font-size:15px;
-color:#d4d4d8;
-}
-
-#browserNotice{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.82);
-backdrop-filter:blur(8px);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:9999;
-}
-
-.notice-box{
-width:100%;
-max-width:420px;
-background:#0f172a;
-border:1px solid rgba(255,255,255,.08);
-border-radius:28px;
-padding:24px;
-text-align:center;
-color:white;
-box-shadow:0 20px 60px rgba(0,0,0,.45);
-}
-
-.notice-btn{
-width:100%;
-height:56px;
-border:none;
-border-radius:18px;
-font-size:16px;
-font-weight:700;
-background:linear-gradient(135deg,#28d7ff,#2563eb);
-color:white;
-cursor:pointer;
-margin-top:16px;
-}
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
+<div class="desktop-frame">
 
-<div class="wrapper">
 
-<section class="hero">
-<img src="hero.webp" alt="Private Chats" fetchpriority="high" decoding="async" width="1080" height="1600"/>
-<div class="overlay"></div>
-</section>
+<!-- =========================================
+LANDING 1
+========================================= -->
 
-<div class="content">
-<div class="glass">
+<div class="page fade" id="landing1">
 
-<div class="live">
-<div class="dot"></div>
-<span id="liveCount">1.482 Personen online</span>
-</div>
+    <div class="bg"></div>
 
-<h1>
-Jemand in deiner
-<span>Nähe ist online</span>
-</h1>
+    <div class="overlay"></div>
 
-<div class="sub">
-Private Gespräche.
-Echte Menschen.
-Jetzt sofort verfügbar.
-</div>
+    <div class="card">
 
-<div class="tags">
-<div class="tag">🔥 Heute aktiv</div>
-<div class="tag">📍 Menschen in deiner Nähe</div>
-<div class="tag">💬 Live Chats</div>
-</div>
+        <div class="title">
+            Secure Access
+        </div>
 
-<div class="preview">
-<img src="https://i.pravatar.cc/120?img=5" class="preview-avatar" alt="profil" loading="lazy" width="120" height="120"/>
-<div class="preview-text">
-<strong>Sophie • 3km entfernt</strong>
-<p>„hey 👀“</p>
-<div class="typing">
-<span></span><span></span><span></span>
-</div>
-</div>
-</div>
+        <div class="subtitle">
+            Open this page in your browser to continue
+        </div>
 
-<a href="#" class="cta" id="mainCTA">
-Private Nachrichten öffnen →
-</a>
+        <div class="step">
+            <div class="num">1</div>
+            <div>Tap ⋮ in the top right</div>
+        </div>
 
-<div class="social">
-<div class="avatars">
-<img src="https://i.pravatar.cc/80?img=1" class="avatar" alt="user"/>
-<img src="https://i.pravatar.cc/80?img=2" class="avatar" alt="user"/>
-<img src="https://i.pravatar.cc/80?img=3" class="avatar" alt="user"/>
-</div>
-<span>Über 6.200 aktive Nutzer heute</span>
-</div>
+        <div class="step">
+            <div class="num">2</div>
+            <div>Select “Open in Browser”</div>
+        </div>
 
-<div class="activity">
-<div class="activity-item">
-<div><strong>Anna aus Berlin</strong> ist jetzt online</div>
-</div>
-<div class="activity-item">
-<div><strong>Sophie</strong> schreibt gerade...</div>
-<div class="typing"><span></span><span></span><span></span></div>
-</div>
-<div class="activity-item">
-<div><strong>Neue Nachricht</strong> verfügbar</div>
-</div>
-</div>
+        <button
+        class="open-btn"
+        id="openBtn">
 
-<div class="footer">
-Nur für Erwachsene (18+) • Sicher & anonym
-</div>
+            Open in browser
+
+        </button>
+
+    </div>
+
+    <div class="footer">
+        protected secure connection
+    </div>
 
 </div>
+
+
+
+<!-- =========================================
+LANDING 2
+========================================= -->
+
+<div class="page hidden fade" id="landing2">
+
+    <div class="hero">
+
+        <div class="hero-bg"></div>
+
+        <div class="hero-overlay"></div>
+
+    </div>
+
+    <div class="content2">
+
+        <div class="content2-title">
+            Premium Access
+        </div>
+
+        <div class="verify-box glass">
+
+            <div class="verify-title">
+                Human Verification
+            </div>
+
+            <div class="verify-text">
+                Complete verification to continue securely.
+            </div>
+
+            <label class="checkbox">
+
+                <input
+                type="checkbox"
+                id="humanCheck">
+
+                <span>
+                    I confirm I am human
+                </span>
+
+            </label>
+
+            <button
+            class="verify-btn"
+            id="verifyBtn">
+
+                Continue
+
+            </button>
+
+            <div
+            class="loading"
+            id="loading">
+
+                Verifying secure session...
+
+            </div>
+
+            <div
+            class="progress"
+            id="progress">
+
+                <div
+                class="bar"
+                id="bar"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<div class="sticky">
-<a href="#" class="cta" id="stickyCTA">
-Jetzt Nachrichten ansehen →
-</a>
+
+
+<!-- =========================================
+IOS MODAL
+========================================= -->
+
+<div class="modal" id="iosModal">
+
+    <div class="modal-card">
+
+        <div class="modal-title">
+            Open in Browser
+        </div>
+
+        <div class="modal-text">
+            This website is attempting to open an external browser.
+            Would you like to continue?
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+            class="modal-btn"
+            id="backBtn">
+
+                Cancel
+
+            </button>
+
+            <button
+            class="modal-btn"
+            id="continueBtn">
+
+                Continue
+
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+
+<!-- =========================================
+TOAST
+========================================= -->
 
 <div class="toast" id="toast">
-Anna aus Berlin ist jetzt online
+    Opening external browser...
 </div>
 
-<div class="loader" id="loader">
-<div class="spinner"></div>
-<p>Verbindung wird hergestellt...</p>
-</div>
-
-<div id="browserNotice">
-<div class="notice-box">
-<div style="font-size:42px;margin-bottom:12px;">🌐</div>
-<h2 style="font-size:24px;margin-bottom:12px;font-weight:800;">
-Im Browser öffnen
-</h2>
-<p style="font-size:15px;line-height:1.7;color:#cbd5e1;">
-Für ein besseres Erlebnis öffne diese Seite in Chrome oder Safari.
-</p>
-<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:14px;margin-top:18px;font-size:14px;line-height:1.6;color:#d4d4d8;text-align:left;">
-1. Tippe auf ⋮ oben rechts<br><br>
-2. Wähle <strong>Im Browser öffnen</strong>
-</div>
-<button class="notice-btn" id="continueInside">
-Hier fortfahren
-</button>
-</div>
-</div>
 
 </div>
+
+
 
 <script>
 
-/* ===== SMARTLINK ===== */
-const CPA_LINK =
-"./go.html";
+/* =========================================
+CONFIG
+========================================= */
 
-/* ===== POPUNDER ===== */
-const POPUNDER_LINK =
-"https://m8qpmr9.sexylady-online.com/l0u2hp5";
+const OFFER_LINK =
+"https://your-offer-link.com";
 
-/* ===== IG DETECT ===== */
-const isInstagram =
-/nstagram/i.test(navigator.userAgent);
+const DOMAIN =
+window.location.origin +
+window.location.pathname;
 
-/* ===== RANDOM USERS ===== */
-const users = Math.floor(Math.random()*900)+1200;
 
-document.getElementById('liveCount').textContent =
-`${users.toLocaleString('de-DE')} Personen online`;
+/* =========================================
+DEVICE DETECT
+========================================= */
 
-/* ===== TOAST ===== */
-const toast = document.getElementById('toast');
+const ua =
+navigator.userAgent;
 
-const messages = [
-'Neue Nachricht verfügbar',
-'Sophie schreibt gerade...',
-'Anna aus Berlin ist online',
-'3 neue Personen sind aktiv',
-'Jemand aus deiner Nähe ist online'
-];
+const isIG =
+ua.includes("Instagram") ||
+ua.includes("FBAN") ||
+ua.includes("FBAV") ||
+ua.includes("TikTok");
 
-setInterval(()=>{
+const isAndroid =
+/Android/i.test(ua);
 
-toast.textContent =
-messages[Math.floor(Math.random()*messages.length)];
+const isIOS =
+/iPhone|iPad|iPod/i.test(ua);
 
-toast.classList.add('show');
 
-setTimeout(()=>{
-toast.classList.remove('show');
-},4000);
+/* =========================================
+URL PARAM
+========================================= */
 
-},14000);
-
-/* ===== IG NOTICE ===== */
-window.addEventListener('load',()=>{
-
-if(isInstagram){
-
-setTimeout(()=>{
-
-const notice =
-document.getElementById('browserNotice');
-
-if(notice){
-
-notice.style.display = 'flex';
-
-}
-
-},1200);
-
-}
-
-});
-
-/* ===== SOFT POPUNDER ===== */
-let popTriggered = false;
-
-function openSoftPop(){
-
-if(popTriggered) return;
-
-popTriggered = true;
-
-const lastOpen = localStorage.getItem('lp_pop');
-const now = Date.now();
-
-const expire = 24 * 60 * 60 * 1000;
-
-if(lastOpen && now - lastOpen < expire){
-return;
-}
-
-localStorage.setItem('lp_pop', now);
-
-window.open(
-POPUNDER_LINK,
-'_blank'
+const params =
+new URLSearchParams(
+window.location.search
 );
 
+const browserOpened =
+params.get("browser");
+
+
+/* =========================================
+SESSION SHIELD
+========================================= */
+
+if(
+!sessionStorage.getItem("shield")
+){
+
+    const token =
+    Math.random()
+    .toString(36)
+    .slice(2);
+
+    sessionStorage.setItem(
+    "shield",
+    token
+    );
+
 }
 
-/* ===== REDIRECT ===== */
-function openCPA(){
 
-const loader = document.getElementById('loader');
-loader.classList.add('show');
+/* =========================================
+IMAGE PRELOAD
+========================================= */
 
-if(navigator.vibrate){
-navigator.vibrate(10);
-}
+[
+"landing1.webp",
+"landing2.webp"
+].forEach(src => {
 
-if(!isInstagram){
-openSoftPop();
-}
+    const img =
+    new Image();
 
-setTimeout(()=>{
-window.location.href = CPA_LINK;
-},1000);
-
-}
-
-/* ===== CONTINUE INSIDE ===== */
-const continueBtn =
-document.getElementById('continueInside');
-
-continueBtn.addEventListener('click',()=>{
-
-document.getElementById(
-'browserNotice'
-).style.display = 'none';
+    img.src = src;
 
 });
 
-/* ===== CTA ===== */
-document.getElementById('mainCTA')
-.addEventListener('click',e=>{
 
-e.preventDefault();
-openCPA();
+/* =========================================
+BACK BUTTON
+========================================= */
+
+let warned = false;
+
+history.pushState(
+null,
+null,
+location.href
+);
+
+window.onpopstate = function(){
+
+    if(!warned){
+
+        warned = true;
+
+        history.pushState(
+        null,
+        null,
+        location.href
+        );
+
+        if(isIOS){
+
+            showModal();
+
+        }
+
+    }
+
+};
+
+
+/* =========================================
+VISIBILITY DETECT
+========================================= */
+
+document.addEventListener(
+"visibilitychange",
+() => {
+
+    if(
+    document.hidden
+    ){
+
+        sessionStorage.setItem(
+        "browser_switch",
+        "1"
+        );
+
+    }
 
 });
 
-document.getElementById('stickyCTA')
-.addEventListener('click',e=>{
 
-e.preventDefault();
-openCPA();
+/* =========================================
+START FLOW
+========================================= */
 
-});
+window.onload = function(){
+
+    // CHROME / SAFARI
+    if(
+    browserOpened === "1"
+    ){
+
+        showLanding2();
+
+        return;
+
+    }
+
+    // NORMAL BROWSER
+    if(
+    !isIG
+    ){
+
+        showLanding2();
+
+        return;
+
+    }
+
+    // ANDROID AUTO TOAST
+    if(
+    isAndroid
+    ){
+
+        setTimeout(() => {
+
+            showToast();
+
+        },700);
+
+    }
+
+};
+
+
+/* =========================================
+ANTI DOUBLE CLICK
+========================================= */
+
+let opening = false;
+
+
+/* =========================================
+OPEN BUTTON
+========================================= */
+
+document
+.getElementById("openBtn")
+.onclick = function(){
+
+    if(opening) return;
+
+    opening = true;
+
+    // ANDROID
+    if(isAndroid){
+
+        openIntent();
+
+    }
+
+    // IOS
+    else if(isIOS){
+
+        showModal();
+
+    }
+
+    // DESKTOP
+    else{
+
+        showLanding2();
+
+    }
+
+};
+
+
+/* =========================================
+ANDROID INTENT
+========================================= */
+
+function openIntent(){
+
+    const target =
+    DOMAIN + "?browser=1";
+
+    const encoded =
+    encodeURIComponent(target);
+
+    const cleanPath =
+    window.location.pathname
+    .replace(/^\/+/,"");
+
+    // FAILSAFE
+    setTimeout(() => {
+
+        if(
+        !sessionStorage
+        .getItem("browser_switch")
+        ){
+
+            window.location.href =
+            target;
+
+        }
+
+    },2500);
+
+    // OPEN CHROME
+    window.location.href =
+    "intent://" +
+    window.location.host +
+    "/" +
+    cleanPath +
+    "?browser=1" +
+    "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
+    encoded +
+    ";end";
+
+}
+
+
+/* =========================================
+SHOW LANDING 2
+========================================= */
+
+function showLanding2(){
+
+    document.body.style.opacity =
+    "0";
+
+    setTimeout(() => {
+
+        document
+        .getElementById("landing1")
+        .classList.add("hidden");
+
+        document
+        .getElementById("landing2")
+        .classList.remove("hidden");
+
+        document.body.style.opacity =
+        "1";
+
+    },180);
+
+}
+
+
+/* =========================================
+IOS MODAL
+========================================= */
+
+function showModal(){
+
+    document
+    .getElementById("iosModal")
+    .style.display = "flex";
+
+}
+
+
+document
+.getElementById("backBtn")
+.onclick = function(){
+
+    document
+    .getElementById("iosModal")
+    .style.display = "none";
+
+    opening = false;
+
+};
+
+
+document
+.getElementById("continueBtn")
+.onclick = function(){
+
+    window.location.href =
+    DOMAIN + "?browser=1";
+
+};
+
+
+/* =========================================
+HUMAN CHECK
+========================================= */
+
+document
+.getElementById("humanCheck")
+.onchange = function(){
+
+    const btn =
+    document
+    .getElementById("verifyBtn");
+
+    if(this.checked){
+
+        btn.classList.add(
+        "active"
+        );
+
+    }else{
+
+        btn.classList.remove(
+        "active"
+        );
+
+    }
+
+};
+
+
+/* =========================================
+VERIFY BUTTON
+========================================= */
+
+document
+.getElementById("verifyBtn")
+.onclick = function(){
+
+    if(
+    !document
+    .getElementById("humanCheck")
+    .checked
+    ) return;
+
+    document
+    .getElementById("loading")
+    .style.display = "block";
+
+    document
+    .getElementById("progress")
+    .style.display = "block";
+
+    setTimeout(() => {
+
+        document
+        .getElementById("bar")
+        .style.width = "100%";
+
+    },100);
+
+    setTimeout(() => {
+
+        window.location.replace(
+        OFFER_LINK
+        );
+
+    },1900);
+
+};
+
+
+/* =========================================
+TOAST
+========================================= */
+
+function showToast(){
+
+    const toast =
+    document
+    .getElementById("toast");
+
+    toast.style.display =
+    "block";
+
+    setTimeout(() => {
+
+        toast.style.display =
+        "none";
+
+    },1600);
+
+}
 
 </script>
+
 </body>
 </html>
