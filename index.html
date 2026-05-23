@@ -30,7 +30,8 @@ crossorigin>
 
 <link rel="preload"
 as="image"
-href="assets/bg1.webp">
+href="assets/bg1.webp"
+fetchpriority="high">
 
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
 rel="stylesheet">
@@ -634,14 +635,13 @@ setTimeout(()=>{
 
 if(!redirected){
 
-window.location.href =
-target;
+window.location.replace(
+target
+);
 
 }
 
 },2500);
-
-}
 
 /* IOS */
 
@@ -679,14 +679,13 @@ setTimeout(()=>{
 
 if(!iosRedirected){
 
-window.location.href =
-target;
+window.location.replace(
+target
+);
 
 }
 
 },1400);
-
-}
 
 /* NORMAL */
 
