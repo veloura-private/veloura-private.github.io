@@ -69,6 +69,19 @@ touch-action:manipulation;
 position:fixed;
 inset:0;
 
+overflow:hidden;
+
+z-index:1;
+
+}
+
+.bg::before{
+
+content:'';
+
+position:absolute;
+inset:0;
+
 background:
 linear-gradient(
 to bottom,
@@ -81,18 +94,16 @@ background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
 
+filter:blur(4px);
+
+transform:
+scale(1.08);
+
 animation:
 bgZoom 22s linear infinite alternate;
 
-transform:
-scale(1.03)
-translateZ(0);
-
-backface-visibility:hidden;
-
-will-change:transform;
-
-z-index:1;
+will-change:
+transform;
 
 }
 
