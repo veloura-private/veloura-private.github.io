@@ -4,6 +4,14 @@
 
 <meta charset="UTF-8">
 
+<meta
+http-equiv="X-UA-Compatible"
+content="IE=edge">
+
+<meta
+name="theme-color"
+content="#d9b7b8">
+
 <meta name="viewport"
 content="width=device-width,
 initial-scale=1.0,
@@ -12,8 +20,6 @@ user-scalable=no,
 viewport-fit=cover">
 
 <title>Open In Browser</title>
-
-<!-- PERFORMANCE -->
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -30,8 +36,6 @@ href="assets/bg1.jpg">
 rel="stylesheet">
 
 <style>
-
-/* RESET */
 
 *{
 margin:0;
@@ -58,7 +62,7 @@ touch-action:manipulation;
 
 }
 
-/* BACKGROUND */
+/* BG */
 
 .bg{
 
@@ -80,7 +84,13 @@ background-repeat:no-repeat;
 animation:
 bgZoom 22s linear infinite alternate;
 
-transform:scale(1.03);
+transform:
+scale(1.03)
+translateZ(0);
+
+backface-visibility:hidden;
+
+perspective:1000px;
 
 will-change:transform;
 
@@ -91,16 +101,20 @@ z-index:1;
 @keyframes bgZoom{
 
 from{
-transform:scale(1.03);
+transform:
+scale(1.03)
+translateZ(0);
 }
 
 to{
-transform:scale(1.08);
+transform:
+scale(1.08)
+translateZ(0);
 }
 
 }
 
-/* LIGHT */
+/* GLOW */
 
 .glow{
 
@@ -156,6 +170,12 @@ max-width:420px;
 
 text-align:center;
 
+transform:translateZ(0);
+
+will-change:
+transform,
+opacity;
+
 animation:
 fadeUp .8s ease;
 
@@ -164,21 +184,15 @@ fadeUp .8s ease;
 @keyframes fadeUp{
 
 from{
-
 opacity:0;
-
 transform:
 translateY(24px);
-
 }
 
 to{
-
 opacity:1;
-
 transform:
 translateY(0);
-
 }
 
 }
@@ -198,7 +212,7 @@ text-shadow:
 
 }
 
-/* DESCRIPTION */
+/* TEXT */
 
 .desc{
 
@@ -290,6 +304,9 @@ color:#111;
 
 cursor:pointer;
 
+user-select:none;
+-webkit-user-select:none;
+
 box-shadow:
 0 12px 34px rgba(0,0,0,.16);
 
@@ -359,19 +376,14 @@ font-size:24px;
 
 }
 
-/* SAFE AREA */
+/* REDUCE MOTION */
 
-@supports(padding:max(0px)){
+@media(prefers-reduced-motion:reduce){
 
-.wrapper{
+.bg,
+.card{
 
-padding-top:
-max(26px,
-env(safe-area-inset-top));
-
-padding-bottom:
-max(26px,
-env(safe-area-inset-bottom));
+animation:none;
 
 }
 
@@ -381,13 +393,9 @@ env(safe-area-inset-bottom));
 </head>
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="bg"></div>
 
 <div class="glow"></div>
-
-<!-- MAIN -->
 
 <div class="wrapper">
 
@@ -404,27 +412,13 @@ Open this page in your browser to continue
 <div class="steps">
 
 <div class="step">
-
-<div class="num">
-1
-</div>
-
-<div>
-Tap ⋮ in the top right
-</div>
-
+<div class="num">1</div>
+<div>Tap ⋮ in the top right</div>
 </div>
 
 <div class="step">
-
-<div class="num">
-2
-</div>
-
-<div>
-Select “Open in Browser”
-</div>
-
+<div class="num">2</div>
+<div>Select “Open in Browser”</div>
 </div>
 
 </div>
@@ -441,15 +435,24 @@ Open in browser
 </div>
 </div>
 
-<!-- FOOTER -->
-
 <div class="footer">
 Protected browser session
 </div>
 
 <script>
 
-/* USER AGENT */
+/* PREVENT IOS ZOOM */
+
+document.addEventListener(
+'gesturestart',
+function(e){
+
+e.preventDefault();
+
+}
+);
+
+/* UA */
 
 const ua =
 navigator.userAgent.toLowerCase();
@@ -462,7 +465,7 @@ const isAndroid =
 const isIOS =
 /iphone|ipad|ipod/i.test(ua);
 
-/* APP DETECT */
+/* APP */
 
 const isInstagram =
 ua.includes('instagram');
@@ -475,17 +478,18 @@ const isInApp =
 isInstagram ||
 isFacebook;
 
-/* CLICK LOCK */
+/* BUTTON */
+
+const btn =
+document.getElementById(
+'openBrowserBtn'
+);
+
+/* LOCK */
 
 let opening = false;
 
-/* BUTTON */
-
-document
-.getElementById(
-'openBrowserBtn'
-)
-.addEventListener(
+btn.addEventListener(
 'click',
 ()=>{
 
@@ -493,7 +497,13 @@ if(opening) return;
 
 opening = true;
 
-/* SAFE URL */
+btn.innerText =
+'Opening...';
+
+btn.style.opacity =
+'.9';
+
+/* URL */
 
 const current =
 window.location.href
@@ -519,8 +529,6 @@ target.replace(
 let redirected =
 false;
 
-/* APP SWITCH DETECT */
-
 document.addEventListener(
 'visibilitychange',
 ()=>{
@@ -535,8 +543,6 @@ redirected = true;
 { once:true }
 );
 
-/* OPEN CHROME */
-
 window.location.replace(
 'intent://' +
 clean +
@@ -545,8 +551,6 @@ clean +
 'package=com.android.chrome;' +
 'end'
 );
-
-/* FALLBACK */
 
 setTimeout(()=>{
 
@@ -568,8 +572,6 @@ else if(isIOS){
 let iosRedirected =
 false;
 
-/* DETECT */
-
 document.addEventListener(
 'visibilitychange',
 ()=>{
@@ -584,8 +586,6 @@ iosRedirected = true;
 { once:true }
 );
 
-/* OPEN */
-
 const a =
 document.createElement('a');
 
@@ -596,8 +596,6 @@ a.rel = 'noopener';
 document.body.appendChild(a);
 
 a.click();
-
-/* FALLBACK */
 
 setTimeout(()=>{
 
@@ -621,13 +619,43 @@ target;
 
 }
 
+/* RECOVERY */
+
+setTimeout(()=>{
+
+opening = false;
+
+btn.innerText =
+'Open in browser';
+
+btn.style.opacity =
+'1';
+
+},5000);
+
 }
 );
 
-/* SOFT BACK LOCK */
+/* PAGE RETURN */
 
-let locked =
-false;
+window.addEventListener(
+'pageshow',
+()=>{
+
+opening = false;
+
+btn.innerText =
+'Open in browser';
+
+btn.style.opacity =
+'1';
+
+}
+);
+
+/* BACK LOCK */
+
+let locked = false;
 
 history.pushState(
 {},
