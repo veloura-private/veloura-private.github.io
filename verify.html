@@ -667,6 +667,8 @@ let verified = false;
 
 function verifiedCallback(token){
 
+if(!token) return;
+
 if(verified) return;
 
 verified = true;
