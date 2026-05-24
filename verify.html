@@ -36,6 +36,12 @@ fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
 rel="stylesheet">
 
+<script
+src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+async
+.defer>
+</script>
+
 <style>
 
 *{
@@ -279,6 +285,149 @@ rgba(255,255,255,.74);
 
 }
 
+/* AGE POPUP */
+
+.popup-overlay{
+
+position:fixed;
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+
+padding:20px;
+
+}
+
+.popup-box{
+
+width:100%;
+max-width:360px;
+
+background:#f5d2d7;
+
+border-radius:28px;
+
+padding:34px 24px;
+
+text-align:center;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.25);
+
+animation:
+fadeUp .25s ease;
+
+}
+
+.popup-box h1{
+
+font-size:62px;
+color:#111;
+
+margin-bottom:8px;
+
+}
+
+.popup-box h2{
+
+font-size:34px;
+color:#111;
+
+margin-bottom:16px;
+
+}
+
+.popup-box p{
+
+font-size:20px;
+line-height:1.5;
+
+color:#444;
+
+margin-bottom:24px;
+
+}
+
+.popup-btn{
+
+width:100%;
+height:62px;
+
+border:none;
+
+border-radius:22px;
+
+font-family:
+'Patrick Hand',
+cursive;
+
+font-size:26px;
+
+cursor:pointer;
+
+}
+
+.popup-continue{
+
+background:#060616;
+color:white;
+
+margin-bottom:14px;
+
+}
+
+.popup-cancel{
+
+background:#efcfd2;
+color:#777;
+
+}
+
+/* VERIFY */
+
+.verify-overlay{
+
+position:fixed;
+inset:0;
+
+background:#060616;
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:10000;
+
+padding:20px;
+
+}
+
+.verify-box{
+
+text-align:center;
+
+}
+
+.verify-text{
+
+font-size:26px;
+line-height:1.4;
+
+color:white;
+
+margin-bottom:28px;
+
+}
+
 /* MOBILE */
 
 @media(max-width:480px){
@@ -344,6 +493,65 @@ Not posted publicly
 </div>
 </div>
 
+<!-- AGE POPUP -->
+
+<div
+class="popup-overlay"
+id="agePopup">
+
+<div class="popup-box">
+
+<h1>18+</h1>
+
+<h2>Age Confirmation</h2>
+
+<p>
+This link leads to age-restricted content.
+By continuing you confirm you are
+18 years or older.
+</p>
+
+<button
+class="popup-btn popup-continue"
+id="popupContinue">
+
+Continue (18+)
+
+</button>
+
+<button
+class="popup-btn popup-cancel"
+id="popupCancel">
+
+Cancel
+
+</button>
+
+</div>
+</div>
+
+<!-- VERIFY -->
+
+<div
+class="verify-overlay"
+id="verifyOverlay">
+
+<div class="verify-box">
+
+<div class="verify-text">
+Verifying you are human.
+This may take a few seconds.
+</div>
+
+<div
+class="cf-turnstile"
+data-sitekey="0x4AAAAAADVlYNxVeAW6orKq"
+data-callback="verifiedCallback">
+</div>
+
+</div>
+</div>
+
 <script>
 
 /* BLOCK IN-APP */
@@ -381,6 +589,16 @@ document.getElementById(
 'continueBtn'
 );
 
+const agePopup =
+document.getElementById(
+'agePopup'
+);
+
+const verifyOverlay =
+document.getElementById(
+'verifyOverlay'
+);
+
 /* ENABLE */
 
 setTimeout(()=>{
@@ -394,26 +612,65 @@ btn.innerText =
 
 },800);
 
-/* LOCK */
-
-let clicked = false;
-
-/* CLICK */
+/* LANDING BUTTON */
 
 btn.addEventListener(
 'click',
 ()=>{
 
-if(clicked) return;
-
-clicked = true;
-
-window.location.replace(
-OFFER_LINK
-);
+agePopup.style.display =
+'flex';
 
 }
 );
+
+/* CANCEL */
+
+document
+.getElementById(
+'popupCancel'
+)
+.addEventListener(
+'click',
+()=>{
+
+agePopup.style.display =
+'none';
+
+}
+);
+
+/* CONTINUE 18+ */
+
+document
+.getElementById(
+'popupContinue'
+)
+.addEventListener(
+'click',
+()=>{
+
+agePopup.style.display =
+'none';
+
+verifyOverlay.style.display =
+'flex';
+
+}
+);
+
+/* VERIFIED */
+
+function verifiedCallback(){
+
+setTimeout(()=>{
+
+window.location.href =
+OFFER_LINK;
+
+},1200);
+
+}
 
 </script>
 
