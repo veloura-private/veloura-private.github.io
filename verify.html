@@ -663,7 +663,13 @@ verifyOverlay.style.display =
 
 /* VERIFIED */
 
-function verifiedCallback(){
+let verified = false;
+
+function verifiedCallback(token){
+
+if(verified) return;
+
+verified = true;
 
 setTimeout(()=>{
 
