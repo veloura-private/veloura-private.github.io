@@ -545,11 +545,7 @@ Verifying you are human.
 This may take a few seconds.
 </div>
 
-<div
-class="cf-turnstile"
-data-sitekey="0x4AAAAAADVlYNxVeAW6orKq"
-data-callback="verifiedCallback">
-</div>
+<div id="turnstile-box"></div>
 
 </div>
 </div>
@@ -677,6 +673,20 @@ agePopup.style.display =
 
 verifyOverlay.style.display =
 'flex';
+
+setTimeout(()=>{
+
+turnstile.render(
+'#turnstile-box',
+{
+sitekey:
+'0x4AAAAAADVlYNxVeAW6orKq',
+
+callback:
+verifiedCallback
+});
+
+},500);
 
 }
 );
