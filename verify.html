@@ -616,12 +616,24 @@ btn.innerText =
 
 /* LANDING BUTTON */
 
+let clicked = false;
+
 btn.addEventListener(
 'click',
 ()=>{
 
+if(clicked) return;
+
+clicked = true;
+
+btn.style.opacity = '.7';
+
+setTimeout(()=>{
+
 agePopup.style.display =
 'flex';
+
+},200);
 
 }
 );
