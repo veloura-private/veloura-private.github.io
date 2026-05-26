@@ -735,33 +735,6 @@ btn.style.opacity =
 }
 );
 
-/* BACK LOCK */
-
-let locked = false;
-
-history.pushState(
-{},
-'',
-location.href
-);
-
-window.onpopstate =
-function(){
-
-if(!locked){
-
-locked = true;
-
-history.pushState(
-{},
-'',
-location.href
-);
-
-}
-
-};
-
 </script>
 
 </body>
