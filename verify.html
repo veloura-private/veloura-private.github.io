@@ -660,6 +660,8 @@ btn.style.pointerEvents = 'auto';
 
 /* CONTINUE 18+ */
 
+let turnstileRendered = false;
+
 document
 .getElementById(
 'popupContinue'
@@ -673,6 +675,10 @@ agePopup.style.display =
 
 verifyOverlay.style.display =
 'flex';
+
+if(turnstileRendered) return;
+
+turnstileRendered = true;
 
 setTimeout(()=>{
 
